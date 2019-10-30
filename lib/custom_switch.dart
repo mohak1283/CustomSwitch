@@ -6,6 +6,7 @@ class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
+  final Color inactiveColor = Colors.grey;
   final String activeText = 'On';
   final String inactiveText = 'Off';
 
@@ -14,6 +15,7 @@ class CustomSwitch extends StatefulWidget {
     this.value, 
     this.onChanged, 
     this.activeColor, 
+    this.inactiveColor, 
     this.activeText,
     this.inactiveText})
       : super(key: key);
@@ -61,7 +63,7 @@ class _CustomSwitchState extends State<CustomSwitch>
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
                 color: _circleAnimation.value == Alignment.centerLeft
-                    ? Colors.grey
+                    ? widget.inactiveColor
                     : widget.activeColor),
             child: Padding(
               padding: const EdgeInsets.only(
