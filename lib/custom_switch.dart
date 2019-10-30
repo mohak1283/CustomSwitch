@@ -9,6 +9,8 @@ class CustomSwitch extends StatefulWidget {
   final Color inactiveColor = Colors.grey;
   final String activeText = 'On';
   final String inactiveText = 'Off';
+  final Color activeTextColor = Colors.white70;
+  final Color inactiveTextColor = Colors.white70;
 
   const CustomSwitch({
     Key key, 
@@ -17,7 +19,9 @@ class CustomSwitch extends StatefulWidget {
     this.activeColor, 
     this.inactiveColor, 
     this.activeText,
-    this.inactiveText})
+    this.inactiveText,
+    this.activeTextColor,
+    this.inactiveTextColor})
       : super(key: key);
 
   @override
@@ -77,7 +81,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                           child: Text(
                             widget.activeText,
                             style: TextStyle(
-                                color: Colors.white70,
+                                color: widget.activeTextColor,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 16.0),
                           ),
@@ -98,7 +102,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                           child: Text(
                             widget.inactiveText,
                             style: TextStyle(
-                                color: Colors.white70,
+                                color: widget.inactiveTextColor,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 16.0),
                           ),
