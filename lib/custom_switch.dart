@@ -6,8 +6,16 @@ class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
+  final String activeText = 'On';
+  final String inactiveText = 'Off';
 
-  const CustomSwitch({Key key, this.value, this.onChanged, this.activeColor})
+  const CustomSwitch({
+    Key key, 
+    this.value, 
+    this.onChanged, 
+    this.activeColor, 
+    this.activeText,
+    this.inactiveText})
       : super(key: key);
 
   @override
@@ -65,7 +73,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                       ? Padding(
                           padding: const EdgeInsets.only(left: 4.0, right: 4.0),
                           child: Text(
-                            'On',
+                            widget.activeText,
                             style: TextStyle(
                                 color: Colors.white70,
                                 fontWeight: FontWeight.w900,
@@ -86,7 +94,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                       ? Padding(
                           padding: const EdgeInsets.only(left: 4.0, right: 5.0),
                           child: Text(
-                            'Off',
+                            widget.inactiveText,
                             style: TextStyle(
                                 color: Colors.white70,
                                 fontWeight: FontWeight.w900,
