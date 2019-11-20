@@ -6,8 +6,22 @@ class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
+  final Color inactiveColor = Colors.grey;
+  final String activeText = 'On';
+  final String inactiveText = 'Off';
+  final Color activeTextColor = Colors.white70;
+  final Color inactiveTextColor = Colors.white70;
 
-  const CustomSwitch({Key key, this.value, this.onChanged, this.activeColor})
+  const CustomSwitch({
+    Key key, 
+    this.value, 
+    this.onChanged, 
+    this.activeColor, 
+    this.inactiveColor, 
+    this.activeText,
+    this.inactiveText,
+    this.activeTextColor,
+    this.inactiveTextColor})
       : super(key: key);
 
   @override
@@ -53,7 +67,7 @@ class _CustomSwitchState extends State<CustomSwitch>
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
                 color: _circleAnimation.value == Alignment.centerLeft
-                    ? Colors.grey
+                    ? widget.inactiveColor
                     : widget.activeColor),
             child: Padding(
               padding: const EdgeInsets.only(
@@ -65,9 +79,9 @@ class _CustomSwitchState extends State<CustomSwitch>
                       ? Padding(
                           padding: const EdgeInsets.only(left: 4.0, right: 4.0),
                           child: Text(
-                            'On',
+                            widget.activeText,
                             style: TextStyle(
-                                color: Colors.white70,
+                                color: widget.activeTextColor,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 16.0),
                           ),
@@ -86,9 +100,9 @@ class _CustomSwitchState extends State<CustomSwitch>
                       ? Padding(
                           padding: const EdgeInsets.only(left: 4.0, right: 5.0),
                           child: Text(
-                            'Off',
+                            widget.inactiveText,
                             style: TextStyle(
-                                color: Colors.white70,
+                                color: widget.inactiveTextColor,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 16.0),
                           ),
