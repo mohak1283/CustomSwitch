@@ -3,25 +3,23 @@ library custom_switch;
 import 'package:flutter/material.dart';
 
 class CustomSwitch extends StatefulWidget {
-  final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
-  final Color inactiveColor = Colors.grey;
-  final String activeText = 'On';
-  final String inactiveText = 'Off';
-  final Color activeTextColor = Colors.white70;
-  final Color inactiveTextColor = Colors.white70;
+  final Color inactiveColor;
+  final String activeText;
+  final String inactiveText;
+  final Color activeTextColor;
+  final Color inactiveTextColor;
 
-  const CustomSwitch({
-    Key key, 
-    this.value, 
-    this.onChanged, 
-    this.activeColor, 
-    this.inactiveColor, 
-    this.activeText,
-    this.inactiveText,
-    this.activeTextColor,
-    this.inactiveTextColor})
+  const CustomSwitch(
+      {Key key,
+      this.onChanged,
+      this.activeColor,
+      this.inactiveColor = Colors.grey,
+      this.activeText = 'On',
+      this.inactiveText = 'Off',
+      this.activeTextColor = Colors.white70,
+      this.inactiveTextColor = Colors.white70})
       : super(key: key);
 
   @override
@@ -32,15 +30,15 @@ class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
   Animation _circleAnimation;
   AnimationController _animationController;
-
+  bool isChecked = false;
   @override
   void initState() {
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 60));
     _circleAnimation = AlignmentTween(
-            begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
-            end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
+            begin: isChecked ? Alignment.centerRight : Alignment.centerLeft,
+            end: isChecked ? Alignment.centerLeft : Alignment.centerRight)
         .animate(CurvedAnimation(
             parent: _animationController, curve: Curves.linear));
   }
@@ -57,9 +55,11 @@ class _CustomSwitchState extends State<CustomSwitch>
             } else {
               _animationController.forward();
             }
-            widget.value == false
-                ? widget.onChanged(true)
-                : widget.onChanged(false);
+            if (isChecked == false) {
+              widget.onChanged(isChecked);
+            } else {
+              widget.onChanged(isChecked);
+            }
           },
           child: Container(
             width: 70.0,
