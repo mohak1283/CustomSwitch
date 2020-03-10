@@ -38,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             CustomSwitch(
               activeColor: Colors.pinkAccent,
+              inactiveColor: Colors.green,
               value: status,
               onChanged: (value) {
                 print("VALUE : $value");
