@@ -6,23 +6,28 @@ class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
-  final Color inactiveColor = Colors.grey;
-  final String activeText = 'On';
-  final String inactiveText = 'Off';
-  final Color activeTextColor = Colors.white70;
-  final Color inactiveTextColor = Colors.white70;
+  final Color inactiveColor;
+  final String activeText;
+  final String inactiveText;
+  final Color activeTextColor;
+  final Color inactiveTextColor;
+  final double width, height, toggleSize, valueFontSize;
 
   const CustomSwitch({
-    Key key, 
-    this.value, 
-    this.onChanged, 
-    this.activeColor, 
-    this.inactiveColor, 
-    this.activeText,
-    this.inactiveText,
-    this.activeTextColor,
-    this.inactiveTextColor})
-      : super(key: key);
+    Key key,
+    this.value,
+    this.onChanged,
+    this.activeColor,
+    this.inactiveColor = Colors.grey,
+    this.activeText = 'On',
+    this.inactiveText = 'Off',
+    this.activeTextColor = Colors.white70,
+    this.inactiveTextColor = Colors.white70,
+    this.width = 70.0,
+    this.height = 35.0,
+    this.toggleSize = 25.0,
+    this.valueFontSize = 16.0,
+  }) : super(key: key);
 
   @override
   _CustomSwitchState createState() => _CustomSwitchState();
@@ -62,8 +67,8 @@ class _CustomSwitchState extends State<CustomSwitch>
                 : widget.onChanged(false);
           },
           child: Container(
-            width: 70.0,
-            height: 35.0,
+            width: widget.width,
+            height: widget.height,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
                 color: _circleAnimation.value == Alignment.centerLeft
@@ -76,35 +81,42 @@ class _CustomSwitchState extends State<CustomSwitch>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   _circleAnimation.value == Alignment.centerRight
-                      ? Padding(
-                          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-                          child: Text(
-                            widget.activeText,
-                            style: TextStyle(
-                                color: widget.activeTextColor,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 16.0),
+                      ? Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(left: 4.0, right: 4.0),
+                            child: Text(
+                              widget.activeText,
+                              style: TextStyle(
+                                  color: widget.activeTextColor,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: widget.valueFontSize),
+                            ),
                           ),
                         )
                       : Container(),
                   Align(
                     alignment: _circleAnimation.value,
                     child: Container(
-                      width: 25.0,
-                      height: 25.0,
+                      width: widget.toggleSize,
+                      height: widget.toggleSize,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle, color: Colors.white),
                     ),
                   ),
                   _circleAnimation.value == Alignment.centerLeft
-                      ? Padding(
-                          padding: const EdgeInsets.only(left: 4.0, right: 5.0),
-                          child: Text(
-                            widget.inactiveText,
-                            style: TextStyle(
-                                color: widget.inactiveTextColor,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 16.0),
+                      ? Expanded(
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            padding:
+                                const EdgeInsets.only(left: 4.0, right: 5.0),
+                            child: Text(
+                              widget.inactiveText,
+                              style: TextStyle(
+                                  color: widget.inactiveTextColor,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: widget.valueFontSize),
+                            ),
                           ),
                         )
                       : Container(),
