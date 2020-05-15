@@ -6,22 +6,21 @@ class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
-  final Color inactiveColor = Colors.grey;
-  final String activeText = 'On';
-  final String inactiveText = 'Off';
-  final Color activeTextColor = Colors.white70;
-  final Color inactiveTextColor = Colors.white70;
+  final Color inactiveColor;
+  final Color activeTextColor;
+  final Color inactiveTextColor;
 
-  const CustomSwitch({
-    Key key, 
-    this.value, 
-    this.onChanged, 
-    this.activeColor, 
-    this.inactiveColor, 
-    this.activeText,
-    this.inactiveText,
-    this.activeTextColor,
-    this.inactiveTextColor})
+  final String activeText = "On";
+  final String inactiveText = "Off";
+  
+  const CustomSwitch(
+      {Key key,
+      this.value,
+      this.onChanged,
+      this.activeColor,
+      this.inactiveColor = Colors.grey,
+      this.activeTextColor = Colors.white70,
+      this.inactiveTextColor = Colors.white70})
       : super(key: key);
 
   @override
@@ -36,13 +35,18 @@ class _CustomSwitchState extends State<CustomSwitch>
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 60));
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 40),
+    );
+
     _circleAnimation = AlignmentTween(
-            begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
-            end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
-        .animate(CurvedAnimation(
-            parent: _animationController, curve: Curves.linear));
+      begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
+      end: widget.value ? Alignment.centerLeft : Alignment.centerRight,
+    ).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.linear),
+    );
   }
 
   @override
@@ -52,40 +56,32 @@ class _CustomSwitchState extends State<CustomSwitch>
       builder: (context, child) {
         return GestureDetector(
           onTap: () {
-            if (_animationController.isCompleted) {
-              _animationController.reverse();
-            } else {
-              _animationController.forward();
+            if (!_animationController.isAnimating) {
+              if (_animationController.isCompleted) {
+                _animationController.reverse();
+              } else {
+                _animationController.forward();
+              }
+
+              !widget.value ? widget.onChanged(true) : widget.onChanged(false);
             }
-            widget.value == false
-                ? widget.onChanged(true)
-                : widget.onChanged(false);
           },
           child: Container(
             width: 70.0,
             height: 35.0,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: _circleAnimation.value == Alignment.centerLeft
-                    ? widget.inactiveColor
-                    : widget.activeColor),
+              borderRadius: BorderRadius.circular(20.0),
+              color: _circleAnimation.value == Alignment.centerLeft
+                  ? widget.inactiveColor
+                  : widget.activeColor,
+            ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 4.0, bottom: 4.0, right: 4.0, left: 4.0),
+              padding: const EdgeInsets.all(4.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   _circleAnimation.value == Alignment.centerRight
-                      ? Padding(
-                          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
-                          child: Text(
-                            widget.activeText,
-                            style: TextStyle(
-                                color: widget.activeTextColor,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 16.0),
-                          ),
-                        )
+                      ? _getText(true)
                       : Container(),
                   Align(
                     alignment: _circleAnimation.value,
@@ -93,20 +89,13 @@ class _CustomSwitchState extends State<CustomSwitch>
                       width: 25.0,
                       height: 25.0,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.white),
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   _circleAnimation.value == Alignment.centerLeft
-                      ? Padding(
-                          padding: const EdgeInsets.only(left: 4.0, right: 5.0),
-                          child: Text(
-                            widget.inactiveText,
-                            style: TextStyle(
-                                color: widget.inactiveTextColor,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 16.0),
-                          ),
-                        )
+                      ? _getText(false)
                       : Container(),
                 ],
               ),
@@ -114,6 +103,20 @@ class _CustomSwitchState extends State<CustomSwitch>
           ),
         );
       },
+    );
+  }
+
+  _getText(bool active) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+      child: Text(
+        active ? widget.activeText : widget.inactiveText,
+        style: TextStyle(
+          color: active ? widget.activeTextColor : widget.inactiveTextColor,
+          fontWeight: FontWeight.w900,
+          fontSize: 16.0,
+        ),
+      ),
     );
   }
 }
