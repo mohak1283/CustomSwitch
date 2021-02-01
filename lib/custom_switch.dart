@@ -6,23 +6,23 @@ class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
-  final Color inactiveColor = Colors.grey;
-  final String activeText = 'On';
-  final String inactiveText = 'Off';
-  final Color activeTextColor = Colors.white70;
-  final Color inactiveTextColor = Colors.white70;
+  final Color inactiveColor;
+  final String activeText;
+  final String inactiveText;
+  final Color activeTextColor;
+  final Color inactiveTextColor;
 
   const CustomSwitch({
     Key key, 
     this.value, 
     this.onChanged, 
     this.activeColor, 
-    this.inactiveColor, 
-    this.activeText,
-    this.inactiveText,
-    this.activeTextColor,
-    this.inactiveTextColor})
-      : super(key: key);
+    this.inactiveColor = Colors.grey,
+    this.activeText = 'On',
+    this.inactiveText = 'Off',
+    this.activeTextColor = Colors.white70,
+    this.inactiveTextColor = Colors.white70
+  }) : super(key: key);
 
   @override
   _CustomSwitchState createState() => _CustomSwitchState();
