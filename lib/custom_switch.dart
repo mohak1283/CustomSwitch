@@ -6,23 +6,23 @@ class CustomSwitch extends StatefulWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final Color activeColor;
-  final Color inactiveColor = Colors.grey;
-  final String activeText = 'On';
-  final String inactiveText = 'Off';
-  final Color activeTextColor = Colors.white70;
-  final Color inactiveTextColor = Colors.white70;
+  final Color inactiveColor;
+  final String activeText;
+  final String inactiveText;
+  final Color activeTextColor;
+  final Color inactiveTextColor;
 
   const CustomSwitch({
-    Key key, 
-    this.value, 
-    this.onChanged, 
-    this.activeColor, 
-    this.inactiveColor, 
-    this.activeText,
-    this.inactiveText,
-    this.activeTextColor,
-    this.inactiveTextColor})
-      : super(key: key);
+    required Key key,
+    required this.value,
+    required this.onChanged,
+    required this.activeColor,
+    required this.inactiveColor,
+    required this.activeText,
+    required this.inactiveText,
+    required this.activeTextColor,
+    required this.inactiveTextColor,
+  }) : super(key: key);
 
   @override
   _CustomSwitchState createState() => _CustomSwitchState();
@@ -30,8 +30,8 @@ class CustomSwitch extends StatefulWidget {
 
 class _CustomSwitchState extends State<CustomSwitch>
     with SingleTickerProviderStateMixin {
-  Animation _circleAnimation;
-  AnimationController _animationController;
+  late Animation _circleAnimation;
+  late AnimationController _animationController;
 
   @override
   void initState() {
