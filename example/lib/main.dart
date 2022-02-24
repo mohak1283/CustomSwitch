@@ -8,14 +8,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange
-      ),
+      theme: ThemeData(primarySwatch: Colors.deepOrange),
       home: HomeScreen(),
     );
   }
 }
-
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,7 +20,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   bool status = false;
 
   @override
@@ -37,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CustomSwitch(
-              activeColor: Colors.pinkAccent,
               value: status,
               onChanged: (value) {
                 print("VALUE : $value");
@@ -45,12 +40,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   status = value;
                 });
               },
+              key: null,
+              activeText: 'On',
+              activeTextColor: Colors.white,
+              activeColor: Colors.pinkAccent,
+              inactiveColor: Colors.grey,
+              inactiveText: 'Off',
+              inactiveTextColor: Colors.white,
             ),
-            SizedBox(height: 12.0,),
-            Text('Value : $status', style: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0
-            ),)
+            SizedBox(
+              height: 12.0,
+            ),
+            Text(
+              'Value : $status',
+              style: TextStyle(color: Colors.black, fontSize: 20.0),
+            )
           ],
         ),
       ),
