@@ -5,7 +5,7 @@ author: Mohak Gupta <mohak1283@gmail.com>
 homepage: https://github.com/mohak1283/CustomSwitch
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: '>=2.19.4 <3.0.0'
 
 dependencies:
   flutter:
